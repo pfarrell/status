@@ -18,3 +18,4 @@ Sequel::Model.plugin :json_serializer
 
 require 'models/group'
 require 'models/entry'
+require 'models/status'
