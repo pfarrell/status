@@ -1,10 +1,8 @@
 Sequel.migration do
   change do
-    create_table(:users) do
+    create_table(:groups) do
       primary_key :id
-      String :username
-      String :email
-      String :name
+      String :group
       DateTime :created_at
       DateTime :updated_at
     end

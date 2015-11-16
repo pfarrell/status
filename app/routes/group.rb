@@ -1,3 +1,5 @@
+require 'json' 
+
 class App < Sinatra::Application
   def props
     ret = []
@@ -17,6 +19,24 @@ class App < Sinatra::Application
     respond_to do |wants|
       wants.json { group.to_json }
       wants.html { haml :list, locals: {definition: props, data: data} }
+    end
+  end
+
+  post "/groups/:group/entries" do
+    content_type :json
+    group = Group.find_or_create(group: params[:group])
+    obj = JSON.parse(request.body.read)
+    #require 'byebug' 
+    #byebug
+    entry = Entry.new(group: group, value: obj["status"])
+    entry.save
+    entry.to_json
+  end
+
+  get "/groups/:group" do
+    data = Group.where(group: group)
+    respond_to do |wants|
+      wants.json { data.to_json}
     end
   end
 end
