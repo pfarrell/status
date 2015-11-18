@@ -1,5 +1,7 @@
 %h1
-  %small
-    Welcome to the TerrorDome
-.hr
+  Groups
+-model.each do |obj|
+  %a{href: "/groups/#{obj.group}"}
+    #{obj.group}
+
 :javascript

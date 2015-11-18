@@ -1,5 +1,9 @@
 class App < Sinatra::Application
   get "/" do
-    haml :index
+    data = Group.all
+    respond_to do |wants|
+      wants.json { data.to_json }
+      wants.html { haml :index, locals: {model: data} }
+    end
   end
 end

@@ -1,0 +1,12 @@
+%table
+  %thead
+    %tr
+      %td
+        item
+      %td
+        values
+  %tbody
+    -model.entries.each do |entry|
+      %tr
+        %td
+          =entry.name

@@ -22,22 +22,16 @@ class App < Sinatra::Application
     end
   end
 
-#  post "/groups/:group/statuses" do
-#    content_type :json
-#    group = Group.find_or_create(group: params[:group])
-#    obj = JSON.parse(request.body.read)
-#    obj["statuses"].each do |status| 
-#    #require 'byebug' 
-#    #byebug
-#    entry = Entry.new(group: group, value: obj["status"])
-#    entry.save
-#    entry.to_json
-#  end
-
   get "/groups/:group" do
-    data = Group.where(group: group)
+    data = Group.where(group: params[:group])
     respond_to do |wants|
       wants.json { data.to_json}
+      wants.html { haml :status, locals: {model: data.first}}
     end
+  end
+
+  get "/groups" do
+    content_type :json
+    Group.where(group: params[:group]).to_json
   end
 end
