@@ -1,4 +1,12 @@
-%table
+Current Data
+-model.pivot.each do |entry|
+  .display
+    .current-label
+      =entry[0]
+    .current
+      =entry[1].last
+      
+%table.table
   %thead
     %tr
       %td
@@ -6,7 +14,9 @@
       %td
         values
   %tbody
-    -model.entries.each do |entry|
+    -model.pivot.each do |entry|
       %tr
         %td
-          =entry.name
+          =entry[0]
+        %td
+          =entry[1].join(',')

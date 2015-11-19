@@ -25,7 +25,7 @@ class App < Sinatra::Application
   get "/groups/:group" do
     data = Group.where(group: params[:group])
     respond_to do |wants|
-      wants.json { data.to_json}
+      wants.json { data.first.to_json}
       wants.html { haml :status, locals: {model: data.first}}
     end
   end
