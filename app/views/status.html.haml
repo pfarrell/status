@@ -1,22 +1,9 @@
-Current Data
--model.pivot.each do |entry|
-  .display
-    .current-label
-      =entry[0]
-    .current
-      =entry[1].last
-      
-%table.table
-  %thead
-    %tr
-      %td
-        item
-      %td
-        values
-  %tbody
-    -model.pivot.each do |entry|
-      %tr
-        %td
-          =entry[0]
-        %td
-          =entry[1].join(',')
+-model.pivot.each do |entry,entry_hash|
+  .entry
+    =entry
+  -entry_hash.each do |k,v|
+    .statuses
+      .local-label
+        =k
+      .current.local-label
+        =v.last
