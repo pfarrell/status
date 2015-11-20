@@ -2,7 +2,8 @@
   "name": "APP",
   "version": "0.0.1",
   "dependencies": {
-    "bootstrap": "~3.3.5"
+    "bootstrap": "~3.3.5",
+    "masonry": "~3.3.2"
   },
   "homepage": "https://github.com/pfarrell/sinatra-shell",
   "authors": [

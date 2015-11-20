@@ -1,18 +1,34 @@
+/*
+http://www.colourlovers.com/palette/1/metro
+#FFFFFF white
+#515151 lovers gray
+#00B4FF metro blue
+#EEEEEE qwhite
+*/
 html {
   height: 100%;
 }
 
-.display {
-  width: 10em;
-  font-family: "Courier New";
+.billboard {
+  padding: 1em;
+  border: 1px solid #515151;
+  margin: .6em;
+  border-radius: 5px;
+  background-color: #EEEEEE;
+}
+
+.title{
+  color: #515151
+}
+
+.statuses {
 }
 
 .local-label {
   display: inline;
-  color: white;
-  background-color: lightgray;
-  border-left: 1px solid black;
 }
 
 .current {
+  font-family: "Courier New";
+  color: #00B4FF;
 }

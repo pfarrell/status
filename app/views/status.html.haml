@@ -1,9 +1,21 @@
 -model.pivot.each do |entry,entry_hash|
-  .entry
-    =entry
-  -entry_hash.each do |k,v|
-    .statuses
-      .local-label
-        =k
-      .current.local-label
-        =v.last
+  .billboard
+    .title
+      #{entry}
+    %table.table.table-hover.table-condensed
+      %tbody
+        -entry_hash.each do |k,v|
+          %tr
+            %td
+              .local-label
+                #{k}
+            %td
+              .current.local-label
+                #{v.last}
+:javascript
+  var container = document.querySelector('.container');
+  var msnry = new Masonry( container, {
+    // options
+    columnWidth: 0,
+    itemSelector: '.billboard'
+  });
