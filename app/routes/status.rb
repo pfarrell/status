@@ -30,9 +30,9 @@ class App < Sinatra::Application
     statuses=[]
     group = Group.find(group: params[:group])
     return if group.nil?
-    group.entries.each do |entry|
-       status_lookup = params[:names].nil? ? entry.statuses : entry.statuses.select{|status| status.name == params[:names]}
-       statuses.concat(status_lookup) 
+    group_lookup = params[:names].nil? ? group.entries : group.entries.select{|entry| entry.name == params[:names]}
+    group_lookup.entries.each do |entry|
+       statuses.concat(entry.statuses) 
     end
     statuses.to_json
   end
