@@ -22,7 +22,7 @@ class App < Sinatra::Application
     end
   end
 
-  get "/groups/:group" do
+  get "/groups/:group/latest" do
     data = Group.where(group: params[:group])
     respond_to do |wants|
       wants.json { data.first.to_json}
