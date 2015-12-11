@@ -16,20 +16,6 @@ class App < Sinatra::Application
     end
   end
 
-  post "/groups/:group/statuses" do
-    content_type :json
-    ret=[]
-    group = Group.find_or_create(group: params[:group])
-    obj = JSON.parse(request.body.read)
-    obj["statuses"].each do |status|
-      entry = Entry.find_or_create(group: group, name: status["name"])
-      status = Status.new(entry: entry, value: status)
-      status.save
-      ret << status
-    end
-    ret.to_json
-  end
-
   get "/groups/:group/statuses" do
     statuses=[]
     group = Group.find(group: params[:group])

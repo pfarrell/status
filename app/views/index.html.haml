@@ -1,8 +1,9 @@
 %h1
   Groups
 -model.each do |obj|
-  #{obj.group}
-  %a{href: "/groups/#{obj.group}/latest"}
-    latest
+  %div
+    #{obj.name}
+    %a{href: "/groups/#{obj.name}/latest"}
+      latest
 
 :javascript

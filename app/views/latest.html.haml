@@ -1,0 +1,20 @@
+.billboard
+  .title
+    #{model.name}
+  %table.table.table-hover.table-condensed
+    %tbody
+      -model.pivot.each do |key,values|
+        %tr
+          %td
+            .local-label
+              #{key}
+          %td
+            .current.local-label
+              #{values.last}
+:javascript
+  var container = document.querySelector('.container');
+  var msnry = new Masonry( container, {
+    // options
+    columnWidth: 20,
+    itemSelector: '.billboard'
+  });
