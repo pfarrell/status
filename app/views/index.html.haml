@@ -1,9 +1,22 @@
-%h1
-  Groups
--model.each do |obj|
-  %div
-    #{obj.name}
-    %a{href: "/groups/#{obj.name}/latest"}
-      latest
-
+-model.each do |group|
+  .billboard
+    .title
+      %a{href: "/groups/#{group.name}/latest"}
+        #{group.name}
+    %table.table.table-hover.table-condensed
+      %tbody
+        -group.pivot.each do |key,values|
+          %tr
+            %td
+              .local-label
+                #{key}
+            %td
+              .current.local-label
+                #{values.last}
 :javascript
+  var container = document.querySelector('.container');
+  var msnry = new Masonry( container, {
+    // options
+    columnWidth: 20,
+    itemSelector: '.billboard'
+  });
