@@ -9,8 +9,6 @@ class App < Sinatra::Application
   end
 
   post "/groups/:group/statuses" do
-    #require 'byebug'
-    #byebug
     content_type :json
     ret=[]
     group = Group.find_or_create(group: params[:group])
@@ -25,8 +23,6 @@ class App < Sinatra::Application
   end
 
   get "/groups/:group/statuses" do
-    require 'byebug'
-    byebug
     statuses=[]
     group = Group.find(group: params[:group])
     return if group.nil?
