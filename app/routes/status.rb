@@ -1,6 +1,6 @@
 class App < Sinatra::Application
   
-  def status_props
+  def status_status_props
     props={}
     props["Group"]={value: lambda{|x|  x.entry.group.group}}
     props["Entry"]={value: lambda{|x|  x.entry.name}}
@@ -26,7 +26,7 @@ class App < Sinatra::Application
     end
     respond_to do |wants|
       wants.json { statuses.to_json }
-      wants.html { haml :statuses, locals: { model: { header: status_props, data: statuses}}}
+      wants.html { haml :statuses, locals: { model: { header: status_status_props, data: statuses}}}
     end
   end
 

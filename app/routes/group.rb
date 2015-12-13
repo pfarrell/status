@@ -3,7 +3,14 @@ require 'json'
 class App < Sinatra::Application
   def group_props
     props= {}
-    props["Name"]={ value: lambda{|x| x.group }}
+    props["Name"]={ value: lambda{|x| x.name}}
+    props
+  end
+
+  def group_status_props
+    props={}
+    props["Group"]={value: lambda{|x|  x.group.name}}
+    props["Value"]={value: lambda{|x|  x.value}}
     props
   end
 
@@ -37,16 +44,13 @@ class App < Sinatra::Application
     end
   end
 
-  get "/groups" do
+  get "/groups/:group_name" do
     statuses=[]
-    return if group.nil?
-    group_lookup = params[:names].nil? ? group.entries : group.entries.select{|entry| entry.name == params[:names]}
-    group_lookup.entries.each do |entry|
-       statuses.concat(entry.statuses) 
-    end
+    group = Group.where(name: params[:group_name])
+    return if group.count == 0
     respond_to do |wants|
-      wants.json { statuses.to_json }
-      wants.html { haml :statuses, locals: { model: { header: status_props, data: statuses}}}
+      wants.json { group.to_json }
+      wants.html { haml :statuses, locals: { model: { header: group_status_props, data: group.first.statuses}}}
     end
   end
 end
