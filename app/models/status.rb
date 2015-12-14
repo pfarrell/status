@@ -1,3 +1,3 @@
 class Status < Sequel::Model
-  many_to_one :entry
+  many_to_one :group
 end
