@@ -1,16 +1,30 @@
 require 'json' 
 
 class App < Sinatra::Application
+  def make_lambdas(group)
+    headers = {}
+    props = {}
+    group.statuses.each do |status|
+      status.value.each do |k,v|
+        headers[k] = nil
+      end
+    end
+    headers.each do |k,v|
+      props[k] = {value: lambda{|x| x.value[k]}}
+    end
+    props
+  end
+
   def group_props
     props= {}
     props["Name"]={ value: lambda{|x| x.name}}
     props
   end
 
-  def group_status_props
-    props={}
+  def group_status_props(group)
+    props=make_lambdas(group)
     props["Group"]={value: lambda{|x|  x.group.name}}
-    props["Value"]={value: lambda{|x|  x.value}}
+    props["date"] ={value: lambda{|x| x.created_at}}
     props
   end
 
@@ -50,7 +64,7 @@ class App < Sinatra::Application
     return if group.count == 0
     respond_to do |wants|
       wants.json { group.to_json }
-      wants.html { haml :statuses, locals: { model: { header: group_status_props, data: group.first.statuses}}}
+      wants.html { haml :statuses, locals: { model: { header: group_status_props(group.first), data: group.first.statuses}}}
     end
   end
 end

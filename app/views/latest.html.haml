@@ -1,6 +1,9 @@
 .billboard
   .title
-    #{model.name}
+    #{model.name} (
+    %a{href: "/groups/#{model.name}"}
+      all
+    )
   %table.table.table-hover.table-condensed
     %tbody
       -model.pivot.each do |key,values|
