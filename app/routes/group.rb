@@ -53,7 +53,7 @@ class App < Sinatra::Application
   get "/groups/:group_name/latest" do
     data = Group.where(name: params[:group_name])
     respond_to do |wants|
-      wants.json { data.first.to_json}
+      wants.json { JsonDoc.new(data.first, "groups").to_json}
       wants.html { haml :latest, locals: {model: data.first}}
     end
   end
@@ -63,7 +63,7 @@ class App < Sinatra::Application
     group = Group.where(name: params[:group_name])
     return if group.count == 0
     respond_to do |wants|
-      wants.json { group.to_json }
+      wants.json { JsonDoc.new(group, "groups").to_json }
       wants.html { haml :statuses, locals: { model: { header: group_status_props(group.first), data: group.first.statuses}}}
     end
   end

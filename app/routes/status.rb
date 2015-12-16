@@ -18,15 +18,11 @@ class App < Sinatra::Application
 
   get "/groups/:group/statuses" do
     statuses=[]
-    group = Group.find(group: params[:group])
+    group = Group.find(name: params[:group])
     return if group.nil?
-    group_lookup = params[:names].nil? ? group.entries : group.entries.select{|entry| entry.name == params[:names]}
-    group_lookup.entries.each do |entry|
-       statuses.concat(entry.statuses) 
-    end
     respond_to do |wants|
-      wants.json { statuses.to_json }
-      wants.html { haml :statuses, locals: { model: { header: status_status_props, data: statuses}}}
+      wants.json { JsonDoc.new(group.statuses, "statuses").to_json }
+      wants.html { haml :statuses, locals: { model: { header: status_status_props, data: group.statuses}}}
     end
   end
 
