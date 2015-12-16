@@ -1,8 +1,13 @@
 -model.each do |group|
   .billboard
     .title
+      #{group.name} (
       %a{href: "/groups/#{group.name}/latest"}
-        #{group.name}
+        latest
+      ) (
+      %a{href: "/groups/#{group.name}"}
+        all
+      )
     %table.table.table-hover.table-condensed
       %tbody
         -group.pivot.each do |key,values|
