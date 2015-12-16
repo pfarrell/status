@@ -14,4 +14,5 @@ gem 'haml'
 group :development do
   gem 'rspec'
   gem 'byebug'
+  gem 'simplecov'
 end
