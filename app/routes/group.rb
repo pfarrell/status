@@ -3,14 +3,17 @@ require 'json'
 class App < Sinatra::Application
   def make_lambdas(group)
     headers = {}
-    props = {}
+    props = []
     group.statuses.each do |status|
-      status.value.each do |k,v|
-        headers[k] = nil
-      end
+      keys = status.value.keys
+      headers[keys] = nil
     end
     headers.each do |k,v|
-      props[k] = {value: lambda{|x| x.value[k]}}
+      prop={}
+      prop[k] = k.map{|key| {value: lambda{|x| x.value[k]}}}
+      prop["Group"]={value: lambda{|x|  x.group.name}}
+      prop["date"] ={value: lambda{|x| x.created_at}}
+      props << prop
     end
     props
   end
@@ -23,8 +26,6 @@ class App < Sinatra::Application
 
   def group_status_props(group)
     props=make_lambdas(group)
-    props["Group"]={value: lambda{|x|  x.group.name}}
-    props["date"] ={value: lambda{|x| x.created_at}}
     props
   end
 
