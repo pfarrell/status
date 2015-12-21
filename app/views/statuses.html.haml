@@ -3,7 +3,5 @@
 .container
   .row
     .col-md-12
-      -require 'byebug'
-      -byebug
       -model.each do |k,table|
         =haml :'partials/lambda_list', locals: {model: table}
