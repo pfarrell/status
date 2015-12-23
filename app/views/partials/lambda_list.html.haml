@@ -1,4 +1,3 @@
--byebug
 %table.table.table-condensed
   %thead
     %tr
@@ -9,11 +8,14 @@
     %tr
       -model[:data].each do |defn|
         %tr
-          -model[:header].each do |name, prop|
-            %td
-              .table-data
-                -if prop[:link].nil?
-                  =prop[:value].call(defn)
-                -else
-                  %a{href:"#{prop[:link].call(defn)}"}
+          -model[:header].each do |header|
+            -byebug
+            -header.each do |name, prop|
+              %td
+                .table-data
+                  -byebug
+                  -if prop[:link].nil?
                     =prop[:value].call(defn)
+                  -else
+                    %a{href:"#{prop[:link].call(defn)}"}
+                      =prop[:value].call(defn)
