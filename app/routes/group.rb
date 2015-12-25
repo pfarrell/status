@@ -11,8 +11,8 @@ class App < Sinatra::Application
     headers.each do |k,v|
       prop={}
       prop[k] = k.map{|key| {value: lambda{|x| x.value[k]}}}
-      prop["Group"]={value: lambda{|x|  x.group.name}}
-      prop["date"] ={value: lambda{|x| x.created_at}}
+      prop["Group"]=[{value: lambda{|x|  x.group.name}}]
+      prop["date"] =[{value: lambda{|x| x.created_at}}]
       props << prop
     end
     props
