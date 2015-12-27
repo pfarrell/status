@@ -1,20 +1,20 @@
 %table.table.table-condensed
   %thead
     %tr
-      -model[:header].each do |header|
-        %th
-          =header[0]
+      -model[:header].each do |header, vals|
+        -header.keys.each do |hdr|
+          %th
+            =hdr
   %tbody
     %tr
       -model[:data].each do |defn|
         %tr
           -model[:header].each do |header|
-            -header.each do |name, props|
-              -props.each do |prop|
-                %td
-                  .table-data
-                    -if prop[:link].nil?
+            -header.each do |name, prop|
+              %td
+                .table-data
+                  -if prop[:link].nil?
+                    =prop[:value].call(defn)
+                  -else
+                    %a{href:"#{prop[:link].call(defn)}"}
                       =prop[:value].call(defn)
-                    -else
-                      %a{href:"#{prop[:link].call(defn)}"}
-                        =prop[:value].call(defn)
