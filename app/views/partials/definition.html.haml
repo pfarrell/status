@@ -1,0 +1,8 @@
+
+%td
+  .table-data
+    -if prop[:link].nil?
+      =prop[:value].call(defn)
+    -else
+      %a{href:"#{prop[:link].call(defn)}"}
+        =prop[:value].call(defn)

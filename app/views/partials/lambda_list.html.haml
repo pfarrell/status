@@ -11,10 +11,4 @@
         %tr
           -model[:header].each do |header|
             -header.each do |name, prop|
-              %td
-                .table-data
-                  -if prop[:link].nil?
-                    =prop[:value].call(defn)
-                  -else
-                    %a{href:"#{prop[:link].call(defn)}"}
-                      =prop[:value].call(defn)
+              =haml :'partials/definition', locals:{prop: prop, defn: defn}
