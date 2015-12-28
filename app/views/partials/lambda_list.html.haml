@@ -11,4 +11,8 @@
         %tr
           -model[:header].each do |header|
             -header.each do |name, prop|
-              =haml :'partials/definition', locals:{prop: prop, defn: defn}
+              -byebug
+              -if name.is_a? Array
+                =haml :'partials/array', locals: {name: name, prop: prop, defn: defn}
+              -else
+                =haml :'partials/definition', locals:{prop: prop, defn: defn}
