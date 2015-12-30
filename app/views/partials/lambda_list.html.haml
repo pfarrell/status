@@ -1,18 +1,21 @@
-%table.table.table-condensed
-  %thead
-    %tr
-      -model[:header].each do |header, vals|
+-model[:headers].each do |header, vals|
+  %table.table.table-condensed
+    %thead
+      %tr
         -header.keys.each do |hdr|
-          %th
-            =hdr
-  %tbody
-    %tr
+          -if hdr.is_a? Array
+            -hdr.each do |h|
+              %th
+                =h
+          -else
+            %th
+              =hdr
+    %tbody
       -model[:data].each do |defn|
         %tr
-          -model[:header].each do |header|
-            -header.each do |name, prop|
-              -byebug
-              -if name.is_a? Array
-                =haml :'partials/array', locals: {name: name, prop: prop, defn: defn}
-              -else
-                =haml :'partials/definition', locals:{prop: prop, defn: defn}
+        -header.each do |name, prop|
+          -if defn.value.keys == header.first[0]
+            -if name.is_a? Array
+              =haml :'partials/array', locals:{name: name, prop: prop, defn: defn}
+            -else
+              =haml :'partials/definition', locals:{prop: prop, defn: defn}

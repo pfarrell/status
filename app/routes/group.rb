@@ -2,8 +2,6 @@ require 'json'
 
 class App < Sinatra::Application
   def make_lambdas(group)
-    require 'byebug'
-    #byebug
     headers = {}
     props = []
     group.statuses.each do |status|
@@ -12,9 +10,7 @@ class App < Sinatra::Application
     end
     headers.each do |k,v|
       prop={}
-      prop[k] = k.map{|key| {value: lambda{|x| 
-      byebug
-      x.value[k]}}}
+      prop[k] = k.map{|key| {value: lambda{|x| x.value[key]}}}
       prop["Group"]={value: lambda{|x|  x.group.name}}
       prop["date"] ={value: lambda{|x| x.created_at}}
       props << prop
@@ -68,7 +64,7 @@ class App < Sinatra::Application
     return if group.count == 0
     respond_to do |wants|
       wants.json { JsonDoc.new(group, "groups").to_json }
-      wants.html { haml :statuses, locals: { model: { header: group_status_props(group.first), data: group.first.statuses}}}
+      wants.html { haml :statuses, locals: { model: { headers: group_status_props(group.first), data: group.first.statuses}}}
     end
   end
 end
