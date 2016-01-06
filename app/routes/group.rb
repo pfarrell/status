@@ -21,7 +21,7 @@ class App < Sinatra::Application
 
   def group_props
     props= {}
-    props["Name"]={ value: lambda{|x| x.name}}
+    props["Name"]={ value: lambda{|x| x.name}, link: lambda{|x| "/groups/#{x.name}"}}
     props
   end
 
