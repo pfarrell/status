@@ -1,4 +1,5 @@
 require 'json' 
+require 'byebug'
 
 class App < Sinatra::Application
   def make_lambdas(group)
@@ -33,7 +34,7 @@ class App < Sinatra::Application
     data = Group.all
     respond_to do |wants|
       wants.json { data.to_json }
-      wants.html { haml :groups, locals: {title: "Groups", model: {header: group_props, data: data} }}
+      wants.html { haml :groups, locals: {title: "Groups", model: {headers: [group_props], data: data} }}
     end
   end
 

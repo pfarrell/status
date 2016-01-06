@@ -1,0 +1,18 @@
+-model[:headers].each do |header, vals|
+  .billboard
+    %table.table.table-condensed
+      %thead
+        %tr
+          -header.keys.each do |hdr|
+            -if hdr.is_a? Array
+              -hdr.each do |h|
+                %th
+                  =h
+            -else
+              %th
+                =hdr
+      %tbody
+        -model[:data].each do |defn|
+          %tr
+          -header.each do |name, prop|
+            =haml :'partials/definition', locals:{prop: prop, defn: defn}
