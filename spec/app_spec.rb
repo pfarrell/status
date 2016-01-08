@@ -14,4 +14,11 @@ describe 'App' do
     get "/groups/#{group.name}/status/#{status.id}"
   end
 
+  it 'gets group statuses' do
+    group = Group.find_or_create(name: 'groupname')
+    status = Status.new(value: {test: 'status'}, group: group)
+    status.save
+    get "/groups/#{group.name}/statuses"
+  end
+
 end
