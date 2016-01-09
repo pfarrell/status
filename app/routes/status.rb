@@ -8,14 +8,6 @@ class App < Sinatra::Application
     props
   end
 
-  def get_status(entry, status, upsert=false)
-    if(upsert)
-      return Status.find_or_create(entry: entry, value: status)
-    else
-      return Status.new(entry: entry, value: status)
-    end
-  end
-
   get "/groups/:group/statuses" do
     statuses=[]
     group = Group.find(name: params[:group])
