@@ -1,5 +1,12 @@
 %h2
   =model[:data].first.group.name
+  (
+  %a{href: "/groups/#{model[:data].first.group.name}/latest"}
+    latest
+  ) (
+  %a{href: "/groups/#{model[:data].first.group.name}"}
+    all
+  )
 .container
   .row
     .col-md-12
